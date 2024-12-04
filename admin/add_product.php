@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 
     // Redirect back to inventory.html with a success indicator
-    header("Location: inventory.html?status=success");
+    header("Location: inventory.php?status=success");
     exit();
 } else {
     // Redirect back to inventory.html if accessed directly
-    header("Location: inventory.html");
+    header("Location: inventory.php");
     exit();
 }
 ?>
