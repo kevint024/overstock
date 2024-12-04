@@ -2,14 +2,11 @@
 session_start();
 include __DIR__ . '/admin/db_connection.php';
 
-if (!$conn) {
-    die("Database connection failed: " . mysqli_connect_error());
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Prepare the query to check if the user exists
     $sql = "SELECT * FROM users WHERE username = ?";
     $stmt = $conn->prepare($sql);
     
@@ -25,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result && $result->num_rows > 0) {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
+            // Set session variables for the logged-in user
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
@@ -36,7 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_update->execute();
             $stmt_update->close();
 
-            header("Location: admin/orders.php");
+            // Redirect based on user role
+            if ($user['role'] === 'admin') {
+                header("Location: admin/orders.php");  // Redirect admin to manage orders
+            } else {
+                header("Location: user_dashboard.php");  // Redirect regular users to a different page
+            }
             exit();
         } else {
             $error_message = "Invalid password.";
@@ -50,23 +53,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<header class="main-header">
-        <div class="container">
-            <h2>Welcome to Overstock Daily Deals - Please Login</h2>
-        </div>
+    <h1>Login</h1>
     <?php if (isset($error_message)) { echo "<p style='color: red;'>$error_message</p>"; } ?>
-
     <form action="login.php" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
@@ -75,8 +72,7 @@ $conn->close();
         <input type="password" id="password" name="password" required><br><br>
 
         <button type="submit" class="button-primary">Login</button>
-        <a href="register.php">Create an Account</a>
-
     </form>
+    <br><a href="register.php">Create an Account</a>
 </body>
 </html>
