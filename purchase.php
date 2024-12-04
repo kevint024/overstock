@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];
+    $quantity = (int)$_POST['quantity'];
     $user_id = $_SESSION['user_id'];
 
     // Retrieve customer ID and address information from the customers table linked to this user
@@ -27,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $shipping_zip_code = $customer['zip_code'];
         $shipping_phone_number = $customer['phone_number'];
 
-        // Retrieve product price from the products table
-        $sql_product = "SELECT discount_price FROM products WHERE product_id = ?";
+        // Retrieve product price and stock quantity from the products table
+        $sql_product = "SELECT discount_price, stock_quantity FROM products WHERE product_id = ?";
         $stmt_product = $conn->prepare($sql_product);
         $stmt_product->bind_param("i", $product_id);
         $stmt_product->execute();
@@ -37,7 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result_product && $result_product->num_rows > 0) {
             $product = $result_product->fetch_assoc();
             $discount_price = $product['discount_price'];
-            $quantity = 1;  // Assuming quantity of 1 for simplicity
+            $stock_quantity = $product['stock_quantity'];
+
+            // Check if enough stock is available
+            if ($quantity > $stock_quantity) {
+                echo "Sorry, not enough stock available.";
+                exit();
+            }
 
             // Calculate the total amount
             $total_amount = $discount_price * $quantity;
@@ -55,6 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt_order_item = $conn->prepare($sql_order_item);
                 $stmt_order_item->bind_param("iii", $order_id, $product_id, $quantity);
                 $stmt_order_item->execute();
+
+                // Update stock quantity in the products table
+                $new_stock_quantity = $stock_quantity - $quantity;
+                $sql_update_stock = "UPDATE products SET stock_quantity = ? WHERE product_id = ?";
+                $stmt_update_stock = $conn->prepare($sql_update_stock);
+                $stmt_update_stock->bind_param("ii", $new_stock_quantity, $product_id);
+                $stmt_update_stock->execute();
 
                 echo "Order placed successfully!";
             } else {

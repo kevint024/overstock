@@ -45,6 +45,8 @@ if ($result_product && $result_product->num_rows > 0) {
         <?php if (isset($_SESSION['user_id'])) { ?>
             <form action="purchase.php" method="POST">
                 <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?php echo htmlspecialchars($product['stock_quantity']); ?>" required>
                 <button type="submit" class="button-primary">Purchase</button>
             </form>
         <?php } else { ?>
