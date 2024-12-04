@@ -13,7 +13,7 @@
         <nav>
             <a href="../index.html">Home</a>
             <a href="../contact.html">Contact</a>
-            <a href="inventory.html">Inventory Management</a>
+            <a href="inventory.php">Inventory Management</a>
         </nav>
     </header>
     
@@ -50,6 +50,25 @@
                 document.body.insertBefore(successMessage, document.body.firstChild);
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+                 if (urlParams.get('status') === 'success') {
+                    const successMessage = document.createElement('div');
+                    successMessage.textContent = "Product added successfully!";
+                    successMessage.className = "success-message";
+                    document.body.insertBefore(successMessage, document.body.firstChild);
+                } else if (urlParams.get('status') === 'updated') {
+                    const updatedMessage = document.createElement('div');
+                    updatedMessage.textContent = "Product updated successfully!";
+                    updatedMessage.className = "success-message";
+                    document.body.insertBefore(updatedMessage, document.body.firstChild);
+    }
+    
+    // Remove 'status' from URL without reloading
+    window.history.replaceState({}, document.title, window.location.pathname);
+});
+
     </script>
 </body>
 </html>
