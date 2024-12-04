@@ -1,28 +1,32 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include('db_connection.php');
 
-// Debug: Output form data
-var_dump($_POST);
+// Check if the request is a POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve form data
+    $productName = $_POST['product_name'] ?? null;
+    $category = $_POST['category'] ?? null;
+    $originalPrice = $_POST['original_price'] ?? null;
+    $discountPrice = $_POST['discount_price'] ?? null;
+    $stockQuantity = $_POST['stock_quantity'] ?? null;
 
-// Retrieve form data
-$productName = $_POST['product_name'];
-$category = $_POST['category'];
-$originalPrice = $_POST['original_price'];
-$discountPrice = $_POST['discount_price'];
-$stockQuantity = $_POST['stock_quantity'];
+    // Check if all required data is available
+    if ($productName && $category && $originalPrice !== null && $discountPrice !== null && $stockQuantity !== null) {
+        // Prepare and execute the SQL query
+        $stmt = $conn->prepare("INSERT INTO products (product_name, category, original_price, discount_price, stock_quantity) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdii", $productName, $category, $originalPrice, $discountPrice, $stockQuantity);
+        $stmt->execute();
+        $stmt->close();
+    }
 
-// No wanty injection. Injection bad.
-$stmt = $conn->prepare("INSERT INTO products (product_name, category, original_price, discount_price, stock_quantity) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("ssdii", $productName, $category, $originalPrice, $discountPrice, $stockQuantity);
+    $conn->close();
 
-if ($stmt->execute() === TRUE) {
-    echo "New product added successfully";
+    // Redirect back to inventory.html with a success indicator
+    header("Location: inventory.html?status=success");
+    exit();
 } else {
-    echo "Error: " . $stmt->error;
+    // Redirect back to inventory.html if accessed directly
+    header("Location: inventory.html");
+    exit();
 }
-
-$stmt->close();
-$conn->close();
 ?>

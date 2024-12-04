@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('add-product-form');
 
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
+    
 
         // Extract form data
         const productName = document.getElementById('product-name').value.trim();
