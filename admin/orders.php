@@ -57,35 +57,41 @@
         <!-- Current Orders Section -->
         <section class="current-orders">
             <h2>Current Orders</h2>
-            <?php
-            include('db_connection.php');
+           
+    <?php
+    include('db_connection.php');
 
-            // Fetch all orders from the database
-            $sql = "SELECT orders.order_id, customers.first_name, customers.last_name, orders.order_date, orders.total_amount, orders.status FROM orders
-                    JOIN customers ON orders.customer_id = customers.customer_id";
-            $result = $conn->query($sql);
+    // Fetch all orders from the database
+    $sql = "SELECT orders.order_id, customers.first_name, customers.last_name, orders.order_date, orders.total_amount, orders.status FROM orders
+        JOIN customers ON orders.customer_id = customers.customer_id";
+    $result = $conn->query($sql);
 
-            if ($result && $result->num_rows > 0) {
-                echo "<table class='orders-table'>";
-                echo "<thead><tr><th>Order ID</th><th>Customer</th><th>Order Date</th><th>Total Amount</th><th>Status</th><th>Actions</th></tr></thead><tbody>";
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['order_id']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['order_date']) . "</td>";
-                    echo "<td>$" . htmlspecialchars($row['total_amount']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['status']) . "</td>";
-                    echo "<td><a href='update_order.php?id=" . $row['order_id'] . "' class='button-edit'>Edit</a> | ";
-                    echo "<a href='delete_order.php?id=" . $row['order_id'] . "' class='button-delete' onclick='return confirm(\"Are you sure you want to delete this order?\");'>Delete</a></td>";
-                    echo "</tr>";
-                }
-                echo "</tbody></table>";
-            } else {
-                echo "<p>No orders found.</p>";
-            }
+    if ($result && $result->num_rows > 0) {
+        echo "<table class='orders-table'>";
+        echo "<thead><tr><th>Order ID</th><th>Customer</th><th>Order Date</th><th>Total Amount</th><th>Status</th><th>Actions</th></tr></thead><tbody>";
+        while($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($row['order_id']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['order_date']) . "</td>";
+        echo "<td>$" . htmlspecialchars($row['total_amount']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+        echo "<td>
+            <a href='update_order.php?id=" . $row['order_id'] . "' class='button-edit'>Edit</a> | 
+            <a href='delete_order.php?id=" . $row['order_id'] . "' class='button-delete' onclick='return confirm(\"Are you sure you want to delete this order?\");'>Delete</a> | 
+            <a href='add_order_items.php?order_id=" . $row['order_id'] . "' class='button-add'>Add Items</a> |
+            <a href='edit_order_items.php?order_id=" . $row['order_id'] . "' class='button-edit'>Edit Items</a>
+            </td>";
+        echo "</tr>";
+        }
+        echo "</tbody></table>";
+    } else {
+        echo "<p>No orders found.</p>";
+    }
 
-            $conn->close();
-            ?>
+    $conn->close();
+    ?>
+
         </section>
     </div>
 
