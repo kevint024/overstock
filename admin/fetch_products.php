@@ -15,8 +15,12 @@ if ($result && $result->num_rows > 0) {
         echo "<td>" . htmlspecialchars($row['original_price']) . "</td>";
         echo "<td>" . htmlspecialchars($row['discount_price']) . "</td>";
         echo "<td>" . htmlspecialchars($row['stock_quantity']) . "</td>";
-        // Edit Button Right Here
-        echo "<td><a href='update_product.php?id=" . $row['product_id'] . "'>Edit</a></td>";
+        echo "<td>";
+        // Edit Button
+        echo "<a href='update_product.php?id=" . $row['product_id'] . "'>Edit</a> | ";
+        //Delete Button
+        echo "<a href='delete_product.php?id=" . $row['product_id'] . "' onclick='return confirm(\"Are you sure you want to delete this product?\");'>Delete</a>";
+        echo "</td>";
         echo "</tr>";
     }
     echo "</table>";

@@ -53,16 +53,21 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-                 if (urlParams.get('status') === 'success') {
-                    const successMessage = document.createElement('div');
-                    successMessage.textContent = "Product added successfully!";
-                    successMessage.className = "success-message";
-                    document.body.insertBefore(successMessage, document.body.firstChild);
-                } else if (urlParams.get('status') === 'updated') {
-                    const updatedMessage = document.createElement('div');
-                    updatedMessage.textContent = "Product updated successfully!";
-                    updatedMessage.className = "success-message";
-                    document.body.insertBefore(updatedMessage, document.body.firstChild);
+            if (urlParams.get('status') === 'success') {
+                const successMessage = document.createElement('div');
+                successMessage.textContent = "Product added successfully!";
+                successMessage.className = "success-message";
+                document.body.insertBefore(successMessage, document.body.firstChild);
+            } else if (urlParams.get('status') === 'updated') {
+                const updatedMessage = document.createElement('div');
+                updatedMessage.textContent = "Product updated successfully!";
+                updatedMessage.className = "success-message";
+                document.body.insertBefore(updatedMessage, document.body.firstChild);
+            } else if (urlParams.get('status') === 'deleted') {
+                const deletedMessage = document.createElement('div');
+                deletedMessage.textContent = "Product deleted successfully!";
+                deletedMessage.className = "success-message";
+                document.body.insertBefore(deletedMessage, document.body.firstChild);
     }
     
     // Remove 'status' from URL without reloading
