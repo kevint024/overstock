@@ -9,11 +9,12 @@
 <body>
 
 <header>
-        <h1>Inventory Management</h1>
+        <h1>Inventory Management - Overstock Stock</h1>
         <nav>
             <a href="../index.html">Home</a>
             <a href="../contact.html">Contact</a>
             <a href="inventory.php">Inventory Management</a>
+            <a href="customers.php">Customer Mangement</a>
         </nav>
     </header>
     
