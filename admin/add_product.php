@@ -1,5 +1,10 @@
 <?php
-include('db_connection.php'); 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include('db_connection.php');
+
+// Debug: Output form data
+var_dump($_POST);
 
 // Retrieve form data
 $productName = $_POST['product_name'];
