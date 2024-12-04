@@ -70,6 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 ?>
 
+<?php include __DIR__ . '/../header.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

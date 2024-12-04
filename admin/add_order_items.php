@@ -49,6 +49,9 @@ $result_products = $conn->query($sql_products);
 $conn->close();
 ?>
 
+<?php include __DIR__ . '/../header.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

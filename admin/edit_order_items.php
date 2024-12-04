@@ -35,6 +35,9 @@ if (isset($_GET['order_id'])) {
 }
 ?>
 
+<?php include __DIR__ . '/../header.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

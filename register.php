@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($password !== $confirm_password) {
         $error_message = "Passwords do not match.";
     } else {
-        // Check if the username already exists
+        // Check if username already exists
         $sql_check = "SELECT * FROM users WHERE username = ?";
         $stmt_check = $conn->prepare($sql_check);
         $stmt_check->bind_param("s", $username);
@@ -56,7 +56,12 @@ $conn->close();
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Register</h1>
+    <header class="main-header">
+        <div class="container">
+            <h2>Create a New Account</h2>
+        </div>
+    </header>
+
     <?php if (isset($error_message)) { echo "<p style='color: red;'>$error_message</p>"; } ?>
     <?php if (isset($success_message)) { echo "<p style='color: green;'>$success_message</p>"; } ?>
 

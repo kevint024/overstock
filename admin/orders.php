@@ -13,6 +13,7 @@ if ($_SESSION['role'] !== 'admin') {
 }
 ?>
 
+<?php include __DIR__ . '/../header.php'; ?>
 
 
 <!DOCTYPE html>

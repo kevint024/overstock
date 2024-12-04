@@ -51,6 +51,7 @@ $conn->close();
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +61,10 @@ $conn->close();
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Login</h1>
+<header class="main-header">
+        <div class="container">
+            <h2>Welcome to Overstock Daily Deals - Please Login</h2>
+        </div>
     <?php if (isset($error_message)) { echo "<p style='color: red;'>$error_message</p>"; } ?>
 
     <form action="login.php" method="POST">
