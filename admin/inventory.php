@@ -21,6 +21,9 @@
         <label for="product_name">Product Name:</label>
         <input type="text" id="product_name" name="product_name" required><br><br>
 
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
         <label for="category">Category:</label>
         <input type="text" id="category" name="category" required><br><br>
 
@@ -32,6 +35,15 @@
 
         <label for="stock_quantity">Stock Quantity:</label>
         <input type="number" id="stock_quantity" name="stock_quantity" required><br><br>
+
+        <label for="deal_start_date">Deal Start Date:</label>
+        <input type="date" id="deal_start_date" name="deal_start_date"><br><br>
+
+        <label for="deal_end_date">Deal End Date:</label>
+        <input type="date" id="deal_end_date" name="deal_end_date"><br><br>
+
+        <label for="is_active">Is Active:</label>
+        <input type="checkbox" id="is_active" name="is_active" checked><br><br>
 
         <button type="submit">Add Product</button>
     </form>

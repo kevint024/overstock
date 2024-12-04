@@ -26,15 +26,19 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle the update form submission
     $productName = $_POST['product_name'];
+    $description = $_POST['description'];
     $category = $_POST['category'];
     $originalPrice = $_POST['original_price'];
     $discountPrice = $_POST['discount_price'];
     $stockQuantity = $_POST['stock_quantity'];
+    $dealStartDate = !empty($_POST['deal_start_date']) ? $_POST['deal_start_date'] : NULL;
+    $dealEndDate = !empty($_POST['deal_end_date']) ? $_POST['deal_end_date'] : NULL;
+    $isActive = isset($_POST['is_active']) ? 1 : 0;
 
     // Update the product in the database
-    $sql = "UPDATE products SET product_name = ?, category = ?, original_price = ?, discount_price = ?, stock_quantity = ? WHERE product_id = ?";
+    $sql = "UPDATE products SET product_name = ?, description = ?, category = ?, original_price = ?, discount_price = ?, stock_quantity = ?, deal_start_date = ?, deal_end_date = ?, is_active = ? WHERE product_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssdiii", $productName, $category, $originalPrice, $discountPrice, $stockQuantity, $product_id);
+    $stmt->bind_param("sssddissii", $productName, $description, $category, $originalPrice, $discountPrice, $stockQuantity, $dealStartDate, $dealEndDate, $isActive, $product_id);
 
     if ($stmt->execute()) {
         header("Location: inventory.php?status=updated");
@@ -63,6 +67,9 @@ $conn->close();
         <label for="product_name">Product Name:</label>
         <input type="text" id="product_name" name="product_name" value="<?php echo htmlspecialchars($product['product_name']); ?>" required><br><br>
 
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required><?php echo htmlspecialchars($product['description']); ?></textarea><br><br>
+
         <label for="category">Category:</label>
         <input type="text" id="category" name="category" value="<?php echo htmlspecialchars($product['category']); ?>" required><br><br>
 
@@ -74,6 +81,15 @@ $conn->close();
 
         <label for="stock_quantity">Stock Quantity:</label>
         <input type="number" id="stock_quantity" name="stock_quantity" value="<?php echo htmlspecialchars($product['stock_quantity']); ?>" required><br><br>
+
+        <label for="deal_start_date">Deal Start Date:</label>
+        <input type="date" id="deal_start_date" name="deal_start_date" value="<?php echo htmlspecialchars($product['deal_start_date']); ?>"><br><br>
+
+        <label for="deal_end_date">Deal End Date:</label>
+        <input type="date" id="deal_end_date" name="deal_end_date" value="<?php echo htmlspecialchars($product['deal_end_date']); ?>"><br><br>
+
+        <label for="is_active">Is Active:</label>
+        <input type="checkbox" id="is_active" name="is_active" <?php echo ($product['is_active'] == 1) ? 'checked' : ''; ?>><br><br>
 
         <button type="submit">Update Product</button>
     </form>
