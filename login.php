@@ -71,6 +71,8 @@ $conn->close();
         <input type="password" id="password" name="password" required><br><br>
 
         <button type="submit" class="button-primary">Login</button>
+        <a href="register.php">Create an Account</a>
+
     </form>
 </body>
 </html>
