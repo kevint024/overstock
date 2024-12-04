@@ -1,4 +1,21 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+// Ensure only admins have access to the admin pages
+if ($_SESSION['role'] !== 'admin') {
+    echo "Access denied. You do not have permission to access this page.";
+    exit();
+}
+?>
+
+
+
+<?php
 include('db_connection.php');
 
 if (isset($_GET['id'])) {
