@@ -130,3 +130,28 @@ button, input, select, textarea {
     border-radius: 5px;
     padding: 10px;
 }
+.product-main-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.additional-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.product-additional-image {
+    width: 150px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.product-additional-image:hover {
+    transform: scale(1.1);
+}

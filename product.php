@@ -23,6 +23,13 @@ if ($result_product && $result_product->num_rows > 0) {
     echo "Product not found.";
     exit();
 }
+
+// Retrieve additional images from the product_images table
+$sql_images = "SELECT image_path FROM product_images WHERE product_id = ?";
+$stmt_images = $conn->prepare($sql_images);
+$stmt_images->bind_param("i", $product_id);
+$stmt_images->execute();
+$result_images = $stmt_images->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +45,27 @@ if ($result_product && $result_product->num_rows > 0) {
 
     <div class="content">
         <h1><?php echo htmlspecialchars($product['product_name']); ?></h1>
+        
+        <!-- Main Product Image -->
+        <div class="main-image">
+            <img src="<?php echo htmlspecialchars($product['main_image']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="product-main-image">
+        </div>
+
+        <!-- Additional Product Images -->
+        <?php if ($result_images && $result_images->num_rows > 0) { ?>
+            <div class="additional-images">
+                <h3>Additional Images</h3>
+                <?php while ($image = $result_images->fetch_assoc()) { ?>
+                    <img src="<?php echo htmlspecialchars($image['image_path']); ?>" alt="Additional Image" class="product-additional-image">
+                <?php } ?>
+            </div>
+        <?php } ?>
+
         <p>Original Price: $<?php echo htmlspecialchars($product['original_price']); ?></p>
         <p>Discount Price: $<?php echo htmlspecialchars($product['discount_price']); ?></p>
         <p><?php echo htmlspecialchars($product['description']); ?></p>
 
+        <!-- Purchase Section -->
         <?php if (isset($_SESSION['user_id'])) { ?>
             <form action="purchase.php" method="POST">
                 <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
@@ -58,5 +82,6 @@ if ($result_product && $result_product->num_rows > 0) {
 
 <?php
 $stmt_product->close();
+$stmt_images->close();
 $conn->close();
 ?>
