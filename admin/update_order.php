@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 ?>
 
-<?php include __DIR__ . '/../header.php'; ?>
+
 
 
 <!DOCTYPE html>
@@ -68,6 +68,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Order</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <?php include __DIR__ . '/../header.php'; ?>
