@@ -24,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <?php if (isset($_SESSION['user_id'])) { ?>
                         <li><a href="/overstock-daily-deals/user_dashboard.php">My Dashboard</a></li>
                         <?php if ($_SESSION['role'] === 'admin') { ?>
-                            <li><a href="/overstock-daily-deals/admin/products.php" class="admin-link">Manage Products</a></li>
+                            <li><a href="/overstock-daily-deals/admin/inventory.php" class="admin-link">Manage Products</a></li>
                             <li><a href="/overstock-daily-deals/admin/orders.php" class="admin-link">Manage Orders</a></li>
                             <li><a href="/overstock-daily-deals/admin/customers.php" class="admin-link">Manage Customers</a></li>
                         <?php } ?>
