@@ -11,8 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Handle image upload
     if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] == 0) {
-        $target_dir = "uploads/";
+        $target_dir = __DIR__ . "/../uploads/"; // Adjusted to be relative to add_product.php
         $target_file = $target_dir . basename($_FILES["main_image"]["name"]);
+
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -42,8 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($uploadOk == 1) {
             if (move_uploaded_file($_FILES["main_image"]["tmp_name"], $target_file)) {
                 // Successfully uploaded, now insert product into database
+                $relative_file_path = "uploads/" . basename($_FILES["main_image"]["name"]);
                 $sql = "INSERT INTO products (product_name, category, original_price, discount_price, stock_quantity, main_image)
-                        VALUES ('$product_name', '$category', '$original_price', '$discount_price', '$stock_quantity', '$target_file')";
+                        VALUES ('$product_name', '$category', '$original_price', '$discount_price', '$stock_quantity', '$relative_file_path')";
 
                 if ($conn->query($sql) === TRUE) {
                     echo "New product added successfully with an image.";
