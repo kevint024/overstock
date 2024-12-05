@@ -130,28 +130,81 @@ button, input, select, textarea {
     border-radius: 5px;
     padding: 10px;
 }
+/* Removed duplicate styles */
+/* Main product image on product page */
 .product-main-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    max-width: 100%;  /* Ensures the image doesn’t exceed its container */
+    height: auto;     /* Keeps the aspect ratio intact */
+    border-radius: 10px; /* Smooth rounded corners for a polished look */
+    margin-bottom: 20px; /* Space below the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to make it stand out */
 }
 
+/* Additional images on product page */
 .additional-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 20px;
+    display: flex;       /* Display additional images side-by-side */
+    flex-wrap: wrap;     /* Allow wrapping for better responsiveness */
+    gap: 15px;           /* Space between images */
+    margin-bottom: 20px; /* Space below the additional images section */
 }
 
 .product-additional-image {
-    width: 150px;
-    height: auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: transform 0.3s;
+    width: 120px;          /* Fixed width for uniformity */
+    height: auto;          /* Maintain aspect ratio */
+    border: 1px solid #ddd; /* Light border to visually separate the images */
+    border-radius: 5px;     /* Slightly rounded corners */
+    transition: transform 0.3s ease; /* Smooth scaling effect on hover */
 }
 
 .product-additional-image:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slight zoom-in on hover */
+}
+
+/* Homepage main images in product cards */
+.product-image {
+    width: 100%;        /* Make sure it fills the product card */
+    max-height: 200px;  /* Set a max height to keep cards uniform */
+    object-fit: cover;  /* Ensures images fill the designated area while maintaining aspect ratio */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    margin-bottom: 10px; /* Space below the image */
+}
+
+/* Product card styling for consistency */
+.product-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+    background-color: #f9f9f9; /* Light background to differentiate each product */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+}
+
+/* Deal of the Day styling for more emphasis */
+.deal-of-day {
+    border: 2px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fffaf0; /* Slightly different background color to make it stand out */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow for emphasis */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-main-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .additional-images {
+        justify-content: center; /* Center additional images on smaller screens */
+    }
+
+    .product-item {
+        margin: 20px 0; /* Increase margin for better spacing on smaller screens */
+    }
 }
