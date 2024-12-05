@@ -29,7 +29,7 @@ if ($_SESSION['role'] !== 'admin') {
 <?php include __DIR__ . '/../header.php'; ?>
 
     
-    <form id="add-product-form" action="add_product.php" method="POST">
+    <form id="add-product-form" action="add_product.php" method="POST" enctype="multipart/form-data">
         <label for="product_name">Product Name:</label>
         <input type="text" id="product_name" name="product_name" required><br><br>
 
@@ -56,6 +56,9 @@ if ($_SESSION['role'] !== 'admin') {
 
         <label for="is_active">Is Active:</label>
         <input type="checkbox" id="is_active" name="is_active" checked><br><br>
+
+        <label for="main_image">Upload Main Image:</label>
+        <input type="file" id="main_image" name="main_image" accept="image/*" required><br>
 
         <button type="submit">Add Product</button>
     </form>

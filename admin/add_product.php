@@ -1,33 +1,63 @@
 <?php
-include('db_connection.php');
+include 'db_connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve form data
-    $productName = $_POST['product_name'];
-    $description = $_POST['description'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Existing product details
+    $product_name = $_POST['product_name'];
     $category = $_POST['category'];
-    $originalPrice = $_POST['original_price'];
-    $discountPrice = $_POST['discount_price'];
-    $stockQuantity = $_POST['stock_quantity'];
-    $dealStartDate = !empty($_POST['deal_start_date']) ? $_POST['deal_start_date'] : NULL; // Can be NULL if not provided
-    $dealEndDate = !empty($_POST['deal_end_date']) ? $_POST['deal_end_date'] : NULL; // Can be NULL if not provided
-    $isActive = isset($_POST['is_active']) ? 1 : 0; // Checkbox returns true if checked
+    $original_price = $_POST['original_price'];
+    $discount_price = $_POST['discount_price'];
+    $stock_quantity = $_POST['stock_quantity'];
 
-    // Insert into the database
-    $sql = "INSERT INTO products (product_name, description, category, original_price, discount_price, stock_quantity, deal_start_date, deal_end_date, is_active)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssddissi", $productName, $description, $category, $originalPrice, $discountPrice, $stockQuantity, $dealStartDate, $dealEndDate, $isActive);
+    // Handle image upload
+    if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] == 0) {
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["main_image"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    if ($stmt->execute()) {
-        header("Location: inventory.php?status=success");
-        exit();
+        // Check if image file is a valid image
+        $check = getimagesize($_FILES["main_image"]["tmp_name"]);
+        if ($check !== false) {
+            // File is an image
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+
+        // Check file size (5MB limit for this example)
+        if ($_FILES["main_image"]["size"] > 5000000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Allow only certain formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // Upload file if everything is OK
+        if ($uploadOk == 1) {
+            if (move_uploaded_file($_FILES["main_image"]["tmp_name"], $target_file)) {
+                // Successfully uploaded, now insert product into database
+                $sql = "INSERT INTO products (product_name, category, original_price, discount_price, stock_quantity, main_image)
+                        VALUES ('$product_name', '$category', '$original_price', '$discount_price', '$stock_quantity', '$target_file')";
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "New product added successfully with an image.";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
     } else {
-        echo "Error adding product: " . $stmt->error;
+        echo "Image upload failed.";
     }
 
-    $stmt->close();
+    $conn->close();
 }
-
-$conn->close();
 ?>
