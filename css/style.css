@@ -1,141 +1,132 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #8c7ae6;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    background-color: #8c7ae6;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
+/* Main header styling */
 .main-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.main-header .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-}
-
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 15px;
-}
-
-.navbar ul li {
-    display: inline;
-}
-
-.navbar ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5em 1em;
-    transition: background-color 0.3s ease;
-}
-
-.navbar ul li a:hover {
-    background-color: #444;
-    text-decoration: none;
-    border-radius: 4px;
-}
-
-/* Navbar styling */
-.main-header {
-    background-color: #333; /* Dark background for contrast */
-    padding: 10px 20px;
+    background-color: #333; /* Dark gray for contrast */
+    padding: 15px 20px;
 }
 
 .main-header .container {
     display: flex;
-    align-items: center;
+    align-items: center; /* Vertically align items */
     justify-content: space-between;
 }
 
+/* Logo/title styling */
 .main-header h1 {
     color: #fff; /* White text for the logo */
     margin: 0;
     font-size: 1.8em;
 }
 
+/* Navbar styling */
 .navbar ul {
-    list-style-type: none; /* Remove bullets from list */
+    list-style-type: none; /* Remove bullets */
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 20px; /* Space between navbar items */
+    align-items: center; /* Vertically align links */
+    gap: 30px; /* Larger gap for spacing between links */
 }
 
-.navbar ul li {
-    margin: 0;
-}
-
+/* Individual link styling */
 .navbar ul li a {
-    color: #f0f0f0; /* Light text color */
-    text-decoration: none; /* Remove underline from links */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem; /* Adjust font size for better readability */
+    color: #f0f0f0; /* Light text color for readability */
+    text-decoration: none; /* Remove underline */
     font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+    padding: 12px 18px; /* Padding for a balanced clickable area */
+    border-radius: 8px; /* Soft rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions for hover effects */
 }
 
+/* Hover effect */
 .navbar ul li a:hover {
-    background-color: #555; /* Slightly lighter background on hover */
+    background-color: #555; /* Light gray background for hover effect */
     color: #fff; /* White text on hover */
 }
 
-.navbar ul li a.active {
-    background-color: #ff6f61; /* Highlight the active page with an accent color */
-    color: #fff;
-}
-
+/* Admin links styling */
 .navbar ul li a.admin-link {
-    color: #ffcc00; /* Highlight admin links in a different color for distinction */
+    color: #ffcc00; /* Yellow to highlight admin links */
 }
 
-.navbar ul li a.logout-link {
-    background-color: #ff3b30; /* Red background for logout link */
+/* Active link styling */
+.navbar ul li a.active {
+    background-color: #ff6f61; /* Accent color for the active page */
     color: #fff;
-    padding: 8px 12px;
-    transition: background-color 0.3s;
 }
 
+/* Logout link styling */
+.navbar ul li a.logout-link {
+    background-color: #e74c3c; /* Red background for logout */
+    color: #fff;
+    padding: 10px 16px; /* Slightly smaller padding for a compact look */
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+/* Hover effect for logout link */
 .navbar ul li a.logout-link:hover {
-    background-color: #e63028; /* Darker red on hover for logout */
+    background-color: #c0392b; /* Darker red for hover */
+}
+
+/* Responsive media queries */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px; /* Smaller gap for mobile */
+    }
+
+    .navbar ul li a {
+        width: 100%;
+        text-align: left;
+        padding: 10px 20px;
+    }
+
+    .main-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main-header h1 {
+        margin-bottom: 15px;
+    }
+}
+/* General body font */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6; /* Adjust for readability */
+    color: #000000; /* Update the color to a softer gray for readability */
+    background-color: #ffffff; /* A darker background to match the header */
+    margin: 0;
+    padding: 0;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; /* Use bold weight for headings */
+    color: #000000; /* White for good contrast */
+    margin: 10px 0;
+}
+
+/* Link styling (inherit new font family) */
+.navbar ul li a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem; /* Adjust font size for better readability */
+    color: #f0f0f0; /* Light gray to match the new color palette */
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Other elements (buttons, forms) */
+button, input, select, textarea {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 10px;
 }
