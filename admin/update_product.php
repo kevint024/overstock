@@ -82,7 +82,7 @@ $conn->close();
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../header.php'; ?>
 
 
 <body>

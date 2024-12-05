@@ -49,7 +49,7 @@ $result_products = $conn->query($sql_products);
 $conn->close();
 ?>
 
-<?php include __DIR__ . '/../header.php'; ?>
+
 
 
 <!DOCTYPE html>
@@ -60,6 +60,9 @@ $conn->close();
     <title>Add Order Items</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
+
+<?php include __DIR__ . '/../header.php'; ?>
+
 <body>
     <h1>Add Products to Order #<?php echo htmlspecialchars($orderId); ?></h1>
 

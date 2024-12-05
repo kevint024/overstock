@@ -26,7 +26,7 @@ if ($_SESSION['role'] !== 'admin') {
 </head>
 <body>
 
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../header.php'; ?>
 
 
     <h1>Customer Management</h1>

@@ -47,6 +47,10 @@ if (isset($_GET['order_id'])) {
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+
+<?php include __DIR__ . '/../header.php'; ?>
+
+
     <h1>Edit Order Items for Order #<?php echo htmlspecialchars($orderId); ?></h1>
 
     <form action="update_order_items.php" method="POST">

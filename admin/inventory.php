@@ -26,7 +26,7 @@ if ($_SESSION['role'] !== 'admin') {
 </head>
 <body>
 
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../header.php'; ?>
 
     
     <form id="add-product-form" action="add_product.php" method="POST">
