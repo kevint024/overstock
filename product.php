@@ -45,7 +45,7 @@ $result_images = $stmt_images->get_result();
 
     <div class="content">
         <h1><?php echo htmlspecialchars($product['product_name']); ?></h1>
-        
+
         <!-- Main Product Image -->
         <div class="main-image">
             <img src="<?php echo htmlspecialchars($product['main_image']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="product-main-image">

@@ -29,9 +29,9 @@ if ($_SESSION['role'] !== 'admin') {
 <?php include __DIR__ . '/../header.php'; ?>
 
     
-    <form id="add-product-form" action="add_product.php" method="POST" enctype="multipart/form-data">
+<form action="add_product.php" method="POST" enctype="multipart/form-data">
         <label for="product_name">Product Name:</label>
-        <input type="text" id="product_name" name="product_name" required><br><br>
+        <input type="text" id="product_name" name="product_name" required><br>
 
         <label for="description">Description:</label>
         <textarea id="description" name="description" required></textarea><br><br>
@@ -60,6 +60,9 @@ if ($_SESSION['role'] !== 'admin') {
         <label for="main_image">Upload Main Image:</label>
         <input type="file" id="main_image" name="main_image" accept="image/*" required><br>
 
+        <label for="additional_images">Upload Additional Images:</label>
+        <input type="file" id="additional_images" name="additional_images[]" accept="image/*" multiple><br> <!-- Allow multiple images -->
+        
         <button type="submit">Add Product</button>
     </form>
 
