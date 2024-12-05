@@ -70,6 +70,8 @@ $conn->close();
     <title>Update Order</title>
 </head>
 <body>
+<?php include __DIR__ . '/header.php'; ?>
+
     <h1>Update Order</h1>
     <form action="" method="POST">
         <label for="status">Order Status:</label>

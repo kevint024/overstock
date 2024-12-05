@@ -26,15 +26,8 @@ if ($_SESSION['role'] !== 'admin') {
 </head>
 <body>
 
-<header class="site-header">
-        <h1>Customer Mangement - Overstock Stock</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="../contact.html">Contact</a>
-            <a href="inventory.php">Inventory Management</a>
-            <a href="customers.php">Customer Mangement</a>
-        </nav>
-    </header>
+<?php include __DIR__ . '/header.php'; ?>
+
 
     <h1>Customer Management</h1>
 

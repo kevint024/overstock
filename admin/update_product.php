@@ -81,6 +81,10 @@ $conn->close();
     <title>Update Product</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
+
+<?php include __DIR__ . '/header.php'; ?>
+
+
 <body>
     <h1>Update Product</h1>
     <form action="" method="POST">

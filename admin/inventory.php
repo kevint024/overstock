@@ -26,15 +26,8 @@ if ($_SESSION['role'] !== 'admin') {
 </head>
 <body>
 
-<header>
-        <h1>Inventory Management - Overstock Stock</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="../contact.html">Contact</a>
-            <a href="inventory.php">Inventory Management</a>
-            <a href="customers.php">Customer Mangement</a>
-        </nav>
-    </header>
+<?php include __DIR__ . '/header.php'; ?>
+
     
     <form id="add-product-form" action="add_product.php" method="POST">
         <label for="product_name">Product Name:</label>
