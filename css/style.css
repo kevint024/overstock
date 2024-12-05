@@ -76,3 +76,66 @@ footer {
     border-radius: 4px;
 }
 
+/* Navbar styling */
+.main-header {
+    background-color: #333; /* Dark background for contrast */
+    padding: 10px 20px;
+}
+
+.main-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-header h1 {
+    color: #fff; /* White text for the logo */
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.navbar ul {
+    list-style-type: none; /* Remove bullets from list */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px; /* Space between navbar items */
+}
+
+.navbar ul li {
+    margin: 0;
+}
+
+.navbar ul li a {
+    color: #f0f0f0; /* Light text color */
+    text-decoration: none; /* Remove underline from links */
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.navbar ul li a:hover {
+    background-color: #555; /* Slightly lighter background on hover */
+    color: #fff; /* White text on hover */
+}
+
+.navbar ul li a.active {
+    background-color: #ff6f61; /* Highlight the active page with an accent color */
+    color: #fff;
+}
+
+.navbar ul li a.admin-link {
+    color: #ffcc00; /* Highlight admin links in a different color for distinction */
+}
+
+.navbar ul li a.logout-link {
+    background-color: #ff3b30; /* Red background for logout link */
+    color: #fff;
+    padding: 8px 12px;
+    transition: background-color 0.3s;
+}
+
+.navbar ul li a.logout-link:hover {
+    background-color: #e63028; /* Darker red on hover for logout */
+}

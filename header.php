@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +22,11 @@ if (session_status() === PHP_SESSION_NONE) {
                     <?php if (isset($_SESSION['user_id'])) { ?>
                         <li><a href="/overstock-daily-deals/user_dashboard.php">My Dashboard</a></li>
                         <?php if ($_SESSION['role'] === 'admin') { ?>
-                            <li><a href="/overstock-daily-deals/admin/products.php">Manage Products</a></li>
-                            <li><a href="/overstock-daily-deals/admin/orders.php">Manage Orders</a></li>
-                            <li><a href="/overstock-daily-deals/admin/customers.php">Manage Customers</a></li>
+                            <li><a href="/overstock-daily-deals/admin/products.php" class="admin-link">Manage Products</a></li>
+                            <li><a href="/overstock-daily-deals/admin/orders.php" class="admin-link">Manage Orders</a></li>
+                            <li><a href="/overstock-daily-deals/admin/customers.php" class="admin-link">Manage Customers</a></li>
                         <?php } ?>
-                        <li><a href="/overstock-daily-deals/logout.php">Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
+                        <li><a href="/overstock-daily-deals/logout.php" class="logout-link">Logout (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
                     <?php } else { ?>
                         <li><a href="/overstock-daily-deals/login.php">Login</a></li>
                         <li><a href="/overstock-daily-deals/register.php">Register</a></li>
