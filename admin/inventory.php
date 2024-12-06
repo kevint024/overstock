@@ -28,6 +28,8 @@ if ($_SESSION['role'] !== 'admin') {
 
 <?php include __DIR__ . '/../header.php'; ?>
 
+<h1>Manage Products</h1>
+
     
 <form action="add_product.php" method="POST" enctype="multipart/form-data">
     <label for="product_name">Product Name:</label>
