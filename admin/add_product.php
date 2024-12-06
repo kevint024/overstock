@@ -8,6 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $original_price = $_POST['original_price'];
     $discount_price = $_POST['discount_price'];
     $stock_quantity = $_POST['stock_quantity'];
+    $description = $_POST['description'];
+    $deal_start_date = $_POST['deal_start_date'];
+    $deal_end_date = $_POST['deal_end_date'];
 
     // Handle main image upload
     if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] == 0) {
@@ -43,37 +46,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($uploadOk == 1) {
             if (move_uploaded_file($_FILES["main_image"]["tmp_name"], $target_file)) {
                 // Insert product into the `products` table
-                $sql = "INSERT INTO products (product_name, category, original_price, discount_price, stock_quantity, main_image)
-                        VALUES ('$product_name', '$category', '$original_price', '$discount_price', '$stock_quantity', '$relative_file_path')";
+                $sql = "INSERT INTO products (product_name, category, original_price, discount_price, stock_quantity, description, deal_start_date, deal_end_date, main_image)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                if ($conn->query($sql) === TRUE) {
-                    $product_id = $conn->insert_id; // Get the ID of the newly inserted product
+                // Use prepared statements to avoid SQL injection
+                if ($stmt = $conn->prepare($sql)) {
+                    $stmt->bind_param("ssddissss", $product_name, $category, $original_price, $discount_price, $stock_quantity, $description, $deal_start_date, $deal_end_date, $relative_file_path);
+                    
+                    // Execute the query
+                    if ($stmt->execute()) {
+                        $product_id = $conn->insert_id; // Get the ID of the newly inserted product
 
-                    // Handle multiple additional image uploads
-                    if (!empty($_FILES['additional_images']['name'][0])) {
-                        foreach ($_FILES['additional_images']['name'] as $key => $value) {
-                            $additional_image_name = basename($_FILES['additional_images']['name'][$key]);
-                            $additional_image_tmp = $_FILES['additional_images']['tmp_name'][$key];
-                            $additional_target_file = $target_dir . $additional_image_name;
-                            $additional_relative_path = "uploads/" . $additional_image_name;
+                        // Handle multiple additional image uploads
+                        if (!empty($_FILES['additional_images']['name'][0])) {
+                            foreach ($_FILES['additional_images']['name'] as $key => $value) {
+                                $additional_image_name = basename($_FILES['additional_images']['name'][$key]);
+                                $additional_image_tmp = $_FILES['additional_images']['tmp_name'][$key];
+                                $additional_target_file = $target_dir . $additional_image_name;
+                                $additional_relative_path = "uploads/" . $additional_image_name;
 
-                            // Validate and upload additional images
-                            $additional_image_type = strtolower(pathinfo($additional_target_file, PATHINFO_EXTENSION));
-                            if (in_array($additional_image_type, ['jpg', 'jpeg', 'png']) && $_FILES['additional_images']['size'][$key] <= 5000000) {
-                                if (move_uploaded_file($additional_image_tmp, $additional_target_file)) {
-                                    // Insert each additional image into the `product_images` table
-                                    $image_sql = "INSERT INTO product_images (product_id, image_path) VALUES ('$product_id', '$additional_relative_path')";
-                                    $conn->query($image_sql);
-                                } else {
-                                    echo "Error uploading additional image: " . htmlspecialchars($value);
+                                // Validate and upload additional images
+                                $additional_image_type = strtolower(pathinfo($additional_target_file, PATHINFO_EXTENSION));
+                                if (in_array($additional_image_type, ['jpg', 'jpeg', 'png']) && $_FILES['additional_images']['size'][$key] <= 5000000) {
+                                    if (move_uploaded_file($additional_image_tmp, $additional_target_file)) {
+                                        // Insert each additional image into the `product_images` table
+                                        $image_sql = "INSERT INTO product_images (product_id, image_path) VALUES (?, ?)";
+                                        if ($image_stmt = $conn->prepare($image_sql)) {
+                                            $image_stmt->bind_param("is", $product_id, $additional_relative_path);
+                                            $image_stmt->execute();
+                                            $image_stmt->close();
+                                        }
+                                    } else {
+                                        echo "Error uploading additional image: " . htmlspecialchars($value);
+                                    }
                                 }
                             }
                         }
+
+                        echo "New product added successfully with images.";
+                    } else {
+                        echo "Error: " . $stmt->error;
                     }
 
-                    echo "New product added successfully with images.";
+                    $stmt->close();
                 } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
+                    echo "Error preparing statement: " . $conn->error;
                 }
             } else {
                 echo "Sorry, there was an error uploading your main image.";
