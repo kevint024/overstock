@@ -31,7 +31,7 @@ $result_all_deals = $conn->query($sql_all_deals);
         ?>
             <div class="deal-of-day">
                 <h2><?php echo htmlspecialchars($deal_of_day['product_name']); ?></h2>
-                <img src="uploads/<?php echo htmlspecialchars($deal_of_day['main_image']); ?>" alt="<?php echo htmlspecialchars($deal_of_day['product_name']); ?>" class="product-image">
+                <img src="<?php echo htmlspecialchars($deal_of_day['main_image']); ?>" alt="<?php echo htmlspecialchars($deal_of_day['product_name']); ?>" class="product-image">
                 <p>Original Price: $<?php echo htmlspecialchars($deal_of_day['original_price']); ?></p>
                 <p>Discount Price: $<?php echo htmlspecialchars($deal_of_day['discount_price']); ?></p>
                 <p><?php echo htmlspecialchars($deal_of_day['description']); ?></p>
@@ -45,7 +45,7 @@ $result_all_deals = $conn->query($sql_all_deals);
         <div class="products-list">
             <?php while ($product = $result_all_deals->fetch_assoc()) { ?>
                 <div class="product-item">
-                    <img src="uploads/<?php echo htmlspecialchars($product['main_image']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="product-image">
+                    <img src="<?php echo htmlspecialchars($product['main_image']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="product-image">
                     <h3><?php echo htmlspecialchars($product['product_name']); ?></h3>
                     <p>Discount Price: $<?php echo htmlspecialchars($product['discount_price']); ?></p>
                     <a href="product.php?product_id=<?php echo $product['product_id']; ?>" class="view-product">View Product</a>

@@ -17,6 +17,8 @@ if ($_SESSION['role'] !== 'admin') {
 <?php
 include('db_connection.php');
 
+
+
 if (isset($_GET['order_id'])) {
     $orderId = $_GET['order_id'];
 
@@ -44,11 +46,10 @@ if (isset($_GET['order_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Order Items for Order #<?php echo htmlspecialchars($orderId); ?></title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-<?php include __DIR__ . '/../header.php'; ?>
 
 
     <h1>Edit Order Items for Order #<?php echo htmlspecialchars($orderId); ?></h1>

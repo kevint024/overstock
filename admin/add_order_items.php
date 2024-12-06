@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit();
@@ -11,15 +12,11 @@ if ($_SESSION['role'] !== 'admin') {
     echo "Access denied. You do not have permission to access this page.";
     exit();
 }
-?>
 
-
-<?php
 include('db_connection.php');
 
-// Make sure $orderId is set initially
+// Check if order_id is provided
 $orderId = null;
-
 if (isset($_GET['order_id'])) {
     $orderId = $_GET['order_id'];
 
@@ -45,12 +42,7 @@ if (isset($_GET['order_id'])) {
 // Fetch products to add to the order
 $sql_products = "SELECT product_id, product_name, stock_quantity, discount_price FROM products WHERE stock_quantity > 0";
 $result_products = $conn->query($sql_products);
-
-$conn->close();
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,3 +83,5 @@ $conn->close();
     <br><a href="orders.php">Back to Orders</a><br>
 </body>
 </html>
+
+<?php $conn->close(); ?>
