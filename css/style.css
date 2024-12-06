@@ -94,12 +94,11 @@
         margin-bottom: 15px;
     }
 }
-/* General body font */
 body {
     font-family: 'Roboto', sans-serif;
-    line-height: 1.6; /* Adjust for readability */
-    color: #000000; /* Update the color to a softer gray for readability */
-    background-color: #ffffff; /* A darker background to match the header */
+    line-height: 1.6; 
+    color: #000000; 
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -133,68 +132,72 @@ button, input, select, textarea {
 /* Removed duplicate styles */
 /* Main product image on product page */
 .product-main-image {
-    max-width: 100%;  /* Ensures the image doesn’t exceed its container */
-    height: auto;     /* Keeps the aspect ratio intact */
-    border-radius: 10px; /* Smooth rounded corners for a polished look */
-    margin-bottom: 20px; /* Space below the image */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to make it stand out */
+    max-width: 100%;  
+    height: auto;     
+    border-radius: 10px; 
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
-
 /* Additional images on product page */
 .additional-images {
-    display: flex;       /* Display additional images side-by-side */
-    flex-wrap: wrap;     /* Allow wrapping for better responsiveness */
-    gap: 15px;           /* Space between images */
-    margin-bottom: 20px; /* Space below the additional images section */
+    display: flex;       
+    flex-wrap: wrap;     
+    gap: 15px;           
+    margin-bottom: 20px; 
+    justify-content: center; /* Center images for better alignment */
 }
 
 .product-additional-image {
-    width: 120px;          /* Fixed width for uniformity */
-    height: auto;          /* Maintain aspect ratio */
-    border: 1px solid #ddd; /* Light border to visually separate the images */
-    border-radius: 5px;     /* Slightly rounded corners */
-    transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+    width: 150px;        
+    height: auto;        
+    border: 1px solid #ddd; 
+    border-radius: 5px;  
+    transition: transform 0.3s ease; 
 }
 
+
 .product-additional-image:hover {
-    transform: scale(1.1); /* Slight zoom-in on hover */
+    transform: scale(1.1);
 }
 
 /* Homepage main images in product cards */
 .product-image {
-    width: 100%;        /* Make sure it fills the product card */
-    max-height: 200px;  /* Set a max height to keep cards uniform */
-    object-fit: cover;  /* Ensures images fill the designated area while maintaining aspect ratio */
-    border-radius: 8px; /* Rounded corners for a modern look */
-    margin-bottom: 10px; /* Space below the image */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow, optional */
+    width: 100%;              /* Ensure images fill the product card width */
+    height: 200px;            /* Set a consistent height */
+    object-fit: cover;        /* Maintain aspect ratio while filling the set dimensions */
+    border-radius: 8px;       /* Rounded corners for a modern look */
+    margin-bottom: 10px;      /* Space below the image */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
 /* Product card styling for consistency */
 .product-item {
     border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
+    padding: 20px;
+    margin: 15px;
     text-align: center;
     transition: transform 0.3s;
-    background-color: #f9f9f9; /* Light background to differentiate each product */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    background-color: #f9f9f9; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; /* Soft rounded corners for a polished look */
+    overflow: hidden; /* Ensures that images don’t overflow the card */
 }
 
 .product-item:hover {
     transform: scale(1.05);
 }
 
-/* Deal of the Day styling for more emphasis */
+/* Deal of the Day styling for emphasis */
 .deal-of-day {
-    border: 2px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #fffaf0; /* Slightly different background color to make it stand out */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow for emphasis */
+    border: 2px solid #ffcc00; /* Highlight border for Deal of the Day */
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #fffaf0; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .product-main-image {
         max-width: 100%;
@@ -202,10 +205,18 @@ button, input, select, textarea {
     }
 
     .additional-images {
-        justify-content: center; /* Center additional images on smaller screens */
+        justify-content: center; 
     }
 
     .product-item {
-        margin: 20px 0; /* Increase margin for better spacing on smaller screens */
+        margin: 20px 0; 
+    }
+
+    .deal-of-day {
+        margin: 20px 0;
+    }
+
+    .product-image {
+        height: 180px; /* Slightly smaller height for mobile screens */
     }
 }
