@@ -11,11 +11,7 @@ if ($_SESSION['role'] !== 'admin') {
     echo "Access denied. You do not have permission to access this page.";
     exit();
 }
-?>
 
-
-
-<?php
 include('db_connection.php');
 
 if (isset($_GET['id'])) {
@@ -51,11 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dealStartDate = !empty($_POST['deal_start_date']) ? $_POST['deal_start_date'] : NULL;
     $dealEndDate = !empty($_POST['deal_end_date']) ? $_POST['deal_end_date'] : NULL;
     $isActive = isset($_POST['is_active']) ? 1 : 0;
+    $isDealOfDay = isset($_POST['is_deal_of_day']) ? 1 : 0;
 
-    // Update the product in the database
-    $sql = "UPDATE products SET product_name = ?, description = ?, category = ?, original_price = ?, discount_price = ?, stock_quantity = ?, deal_start_date = ?, deal_end_date = ?, is_active = ? WHERE product_id = ?";
+    // Step 1: Clear previous Deal of the Day if this product is set as the new Deal of the Day
+    if ($isDealOfDay == 1) {
+        $sql_clear_deal = "UPDATE products SET is_deal_of_day = 0 WHERE is_deal_of_day = 1";
+        $conn->query($sql_clear_deal);
+    }
+
+    // Step 2: Update the product in the database
+    $sql = "UPDATE products SET product_name = ?, description = ?, category = ?, original_price = ?, discount_price = ?, stock_quantity = ?, deal_start_date = ?, deal_end_date = ?, is_active = ?, is_deal_of_day = ? WHERE product_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssddissii", $productName, $description, $category, $originalPrice, $discountPrice, $stockQuantity, $dealStartDate, $dealEndDate, $isActive, $product_id);
+    $stmt->bind_param("sssddissiii", $productName, $description, $category, $originalPrice, $discountPrice, $stockQuantity, $dealStartDate, $dealEndDate, $isActive, $isDealOfDay, $product_id);
 
     if ($stmt->execute()) {
         header("Location: inventory.php?status=updated");
@@ -70,8 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,7 +83,6 @@ $conn->close();
 </head>
 
 <?php include __DIR__ . '/../header.php'; ?>
-
 
 <body>
     <h1>Update Product</h1>
@@ -113,6 +113,9 @@ $conn->close();
 
         <label for="is_active">Is Active:</label>
         <input type="checkbox" id="is_active" name="is_active" <?php echo ($product['is_active'] == 1) ? 'checked' : ''; ?>><br><br>
+
+        <label for="is_deal_of_day">Set as Deal of the Day:</label>
+        <input type="checkbox" id="is_deal_of_day" name="is_deal_of_day" <?php echo ($product['is_deal_of_day'] == 1) ? 'checked' : ''; ?>><br><br>
 
         <button type="submit">Update Product</button>
     </form>
