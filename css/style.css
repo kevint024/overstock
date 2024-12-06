@@ -162,13 +162,15 @@ button, input, select, textarea {
 
 /* Homepage main images in product cards */
 .product-image {
-    width: 100%;              /* Ensure images fill the product card width */
-    height: 200px;            /* Set a consistent height */
-    object-fit: cover;        /* Maintain aspect ratio while filling the set dimensions */
-    border-radius: 8px;       /* Rounded corners for a modern look */
-    margin-bottom: 10px;      /* Space below the image */
+    width: auto;              /* Allow image to retain its natural width */
+    height: 200px;            /* Set a fixed height for uniformity */
+    max-width: 100%;          /* Ensure image doesn’t exceed its container */
+    object-fit: contain;      /* Ensure the entire image fits without cropping */
+    border-radius: 8px;       /* Keep rounded corners for consistency */
+    margin-bottom: 10px;      /* Add spacing below the image */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
+
 
 /* Product card styling for consistency */
 .product-item {
