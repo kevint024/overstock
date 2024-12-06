@@ -19,6 +19,8 @@ $result_product = $stmt_product->get_result();
 
 if ($result_product && $result_product->num_rows > 0) {
     $product = $result_product->fetch_assoc();
+    // Calculate discount percentage
+    $discount_percent = (($product['original_price'] - $product['discount_price']) / $product['original_price']) * 100;
 } else {
     echo "Product not found.";
     exit();
@@ -61,9 +63,40 @@ $result_images = $stmt_images->get_result();
             </div>
         <?php } ?>
 
+        <!-- Product Information -->
         <p>Original Price: $<?php echo htmlspecialchars($product['original_price']); ?></p>
         <p>Discount Price: $<?php echo htmlspecialchars($product['discount_price']); ?></p>
+        <p>Discount: <?php echo round($discount_percent, 2); ?>% off</p>
         <p><?php echo htmlspecialchars($product['description']); ?></p>
+
+        <!-- Countdown Timer -->
+        <?php if (!empty($product['deal_end_date'])): ?>
+            <p>Deal ends on: <?php echo htmlspecialchars($product['deal_end_date']); ?></p>
+            <p id="countdown"></p>
+            <script>
+                // JavaScript Countdown Timer
+                const dealEndDate = new Date('<?php echo htmlspecialchars($product['deal_end_date']); ?>').getTime();
+                
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const timeRemaining = dealEndDate - now;
+
+                    if (timeRemaining > 0) {
+                        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                        document.getElementById("countdown").innerHTML = 
+                            `${days}d ${hours}h ${minutes}m ${seconds}s remaining`;
+                    } else {
+                        document.getElementById("countdown").innerHTML = "Deal has ended.";
+                    }
+                }
+
+                setInterval(updateCountdown, 1000);
+            </script>
+        <?php endif; ?>
 
         <!-- Purchase Section -->
         <?php if (isset($_SESSION['user_id'])) { ?>
