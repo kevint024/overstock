@@ -33,7 +33,7 @@ Overstock Daily Deals is a web application that allows users to browse and purch
     ```
 3. Set up the database:
     - Create a MySQL database named `overstock`.
-    - Import the database schema from `schema.sql` (if available).
+    - Import the database schema from `overstock.sql` (if available).
     - Update the database connection details in [`admin/db_connection.php`](admin/db_connection.php).
 
 4. Start a local server using XAMPP or WAMP and place the project directory in the server's root directory.
@@ -50,6 +50,7 @@ Overstock Daily Deals is a web application that allows users to browse and purch
 - XAMPP with MySQL and Apache is recommended for deployment.
 - Regular accounts can be created through the registration interface.
 - Admin accounts must be directly inserted into the database through phpMyAdmin.
+- Images for products are not in this repo or source code. Please insert themselves for testing purposes.
 
 
 ## License
