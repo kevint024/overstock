@@ -1,11 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase</title>
+    <link rel="stylesheet" href="/overstock-daily-deals/css/style.css">
+</head>
+<body?>
+<?php include __DIR__ . '/header.php'; ?>
+</body>
+</HTML>
+
+
 <?php
-session_start();
+
 include __DIR__ . '/admin/db_connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];
@@ -84,3 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conn->close();
 ?>
+
+
+
+
