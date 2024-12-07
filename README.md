@@ -25,7 +25,7 @@ Overstock Daily Deals is a web application that allows users to browse and purch
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/overstock-daily-deals.git
+    git clone https://github.com/kevint024/overstock.git
     ```
 2. Navigate to the project directory:
     ```sh
